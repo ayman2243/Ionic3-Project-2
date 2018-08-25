@@ -34,9 +34,8 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, public fcm: Firebase, splashScreen: SplashScreen, public keyboard: Keyboard, public _profile: ProfileProvider, public appVersion: AppVersion ) {
 
-    // Production Server: https://s01.secure.sourcya.net:8000/api
-    // Develop Serve: http://dev01.dev.sourcya.net:9400/api
-    localStorage.setItem('apiUrl', /*'/dev/api'*/ 'https://s01.secure.sourcya.net:8000/api')
+
+    localStorage.setItem('apiUrl', /*'/dev/api'*/ 'Removed By Ayman Aljohary');
 
     if (localStorage.getItem('token')) {
       this._profile.Get().subscribe(res => {
