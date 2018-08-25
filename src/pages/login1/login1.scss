@@ -1,0 +1,27 @@
+page-login1 {
+    .subhead
+    {
+      margin: 10px 0;
+      background-color: color($colors,primary);
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 0;
+      overflow: hidden;
+    }
+    .select-init{
+        padding-top:20px !important;
+    }
+    a
+    {
+        display: table;
+        margin: 0 auto !important;
+        text-align: center;
+        color: color($colors,danger);
+        border-bottom: solid 1px color($colors,danger);
+        position: relative;
+        top: 10px;
+    }
+}
+.toast{
+    text-align: right !important;
+}

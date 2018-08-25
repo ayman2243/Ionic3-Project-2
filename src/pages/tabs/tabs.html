@@ -1,0 +1,6 @@
+<ion-tabs #myTabs (ionChange)="tabSelected($event)" selectedIndex="{{ tabIndex }}">
+    <ion-tab [root]="tab1Root" tabTitle="حسابي" tabIcon="home"></ion-tab>
+    <ion-tab [root]="tab2Root" tabTitle="طلب جديد" tabIcon="add-circle"></ion-tab>
+    <ion-tab [root]="tab3Root" tabTitle="شحناتي" tabIcon="md-cart"></ion-tab>
+    <ion-tab [root]="tab4Root" tabTitle="الإشعارات" [tabBadge]="newNotification()" tabBadgeStyle="danger" tabIcon="notifications"></ion-tab>
+</ion-tabs>

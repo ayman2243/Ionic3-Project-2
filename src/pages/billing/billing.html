@@ -1,0 +1,109 @@
+<!--
+  Generated template for the BillingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+      <ion-buttons start>
+        <button ion-button icon-only>
+          <ion-icon name="contact"></ion-icon>
+        </button>
+      </ion-buttons>
+      -->
+    <ion-title>حسابي</ion-title>
+
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event, address)">
+    <ion-refresher-content pullingIcon="md-refresh" refreshingSpinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="info">
+    <div class="rx">
+        <strong>الرصيد النقدي</strong>
+        <span style="color:green" *ngIf="credit?.credit > 0">{{ credit?.credit }}</span>
+        <span style="color:red" *ngIf="credit?.credit <= 0">{{ credit?.credit }}</span>
+        <span style="color:#888" *ngIf="credit?.credit == null">0</span>
+    </div>
+    <div class="rx">
+        <strong>اخر حوالتين بنكية</strong>
+        <span *ngFor="let tra of transactions">
+            <b style="color:green" *ngIf="tra.amount > 0">{{ tra.amount }}</b> 
+            <b style="color:red" *ngIf="tra.amount <= 0">{{ tra.amount }}</b> 
+            -
+            {{ myDate(tra.created_at) | date: 'dd/MMMM' }} 
+        </span>
+        <span  style="color:#888;" *ngIf="transactions.length == 0">لا يوجد حوالات بنكية</span>
+    </div>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <div class="empty_data" *ngIf=" keys?.length == 0 ">
+          <p>لا يوجد فواتير بعد</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngFor="let key of keys; let i = index" class="bilItem" id='bill{{i}}' (click)="toggle('bill'+i)">
+
+    <div class="td">
+      <div class="date">
+        <!-- {{ key }} -->
+        <span> {{ myDate(key) | date: 'dd/MMM'}}</span>
+      </div>
+    </div>
+    <div class="td">
+      <strong>رصيد سابق</strong>
+      <span class="red" *ngIf="dates[i].pastCredit <= 0">{{ dates[i].pastCredit }}</span>
+      <span class="green" *ngIf="dates[i].pastCredit > 0">{{ dates[i].pastCredit }}</span>
+    </div>
+    <div class="td">
+      <strong>عليك</strong>
+      <span class="red">{{ dates[i].toPay }}</span>
+    </div>
+    <div class="td">
+      <strong>لك</strong>
+      <span class="green">{{ dates[i].toCollect }}</span>
+    </div>
+    <div class="td" style="border-left:none;">
+      <strong>الرصيد</strong>
+      <span *ngIf="dates[i].credit > 0" class="green">{{ dates[i].credit }}</span>
+      <span *ngIf="dates[i].credit <= 0" class="red">{{ dates[i].credit }}</span>
+    </div>
+    <div class="ordersdes">
+      <ul>
+        <li>رقم الشحنة</li>
+        <li>من</li>
+        <li>الي</li>
+        <li>القيمة</li>
+      </ul>
+      <ul *ngFor="let order of dates[i].orders">
+        <li>{{ order.serial }}</li>
+        <li>{{ order.sender_address.label }}</li>
+        <li>{{ order.receiver_address.label }}</li>
+        <li>{{ order.price }}</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

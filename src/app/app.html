@@ -1,0 +1,15 @@
+<ion-menu persistent="true" side="right" id="rightMenu" [content]="content">
+<ion-content>
+    <ion-list class="menuItems">
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          {{p.title}}
+        </button>
+    </ion-list>
+    <div class="menuFot">
+        <button ion-button round full menuClose (click)="newOrder();">طلب جديد</button>
+        <span>V {{ appV }}</span>
+    </div>
+</ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>

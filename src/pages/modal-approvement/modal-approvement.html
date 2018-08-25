@@ -1,0 +1,195 @@
+<!--
+Generated template for the ModalApprovementPage page.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+  <ion-buttons start>
+  <button ion-button icon-only>
+  <ion-icon name="contact"></ion-icon>
+  </button>
+  </ion-buttons>
+  -->
+    <ion-title>تأكيد الطلب</ion-title>
+  </ion-navbar>
+</ion-header>
+<!-- <ion-content class="vertical-align-content"> -->
+<!-- <div class="tick">
+  <div class="inside-tick"> -->
+<ion-content>
+  <div class="tick">
+    <div class="inside inside1">
+      <ion-grid class="border-dashed">
+        <ion-row>
+          <ion-col col-12>
+            <h2 text-center margin-top style="font-size: 14px !important;color: #888;">تم إضافة الطلب بنجاح </h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 float-start>
+              <p text-center style="font-size:12px !important;color:#888;">رقم الشحنة</p>
+               <p text-center><span  style="font-size:12px !important;color:#000;">{{data.order.serial}}</span></p>
+          </ion-col>
+          <ion-col col-6 float-start>
+            <div class="img-container">
+              <ion-img src="{{data.order.qr_code.url}}"></ion-img>
+            </div>
+          </ion-col>
+        </ion-row>
+        <div class="corner"></div>
+        <div class="corner1"></div>
+      </ion-grid>
+      <ion-grid class="border-dashed">
+        <ion-row>
+          <ion-col col-5>
+            <!-- <ion-icon name="md-arrow-back"></ion-icon> -->
+            <div class="arrow">
+              <ion-card no-padding>
+                <ion-card-title text-right style="color:#6E5694;font-size:12px !important">
+                  بيانات المستلم
+                </ion-card-title>
+                <ion-card-header>
+                  <p text-center style="overflow: hidden;">
+                    <span style="float:right;color:#000;">: التليفون</span><br>
+                    <span style="float: right; padding-right: 2px; ">{{data.order.receiver_address.phone}}</span>
+                  </p>
+                  <p text-center style="overflow: hidden;">
+                    <span style="float:right;color:#000;">: المدينة</span><br>
+                    <span style="float: right; padding-right: 2px; ">{{data.order.receiver_address.city.name}}</span>
+                  </p>
+                  <p text-center style="overflow: hidden;">
+                    <span style="float:right;color:#000;">: الحى</span><br>
+                    <span style="float: right; padding-right:2px;">{{data.order.receiver_address.district}}</span>
+                  </p>
+                </ion-card-header>
+                <ion-card-content>
+                  <!-- Add card content here! -->
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-col>
+          <ion-col col-2>
+            <ion-icon name="arrow-round-back"></ion-icon>
+          </ion-col>
+          <ion-col col-5>
+            <!-- <ion-icon name="md-arrow-back"></ion-icon> -->
+            <div class="arrow">
+              <ion-card no-padding>
+                <ion-card-title text-right style="color:#6E5694;font-size:12px !important">
+                  بيانات المرسل
+                </ion-card-title>
+                <ion-card-header>
+                  <p style="overflow: hidden;">
+                    <span style="float:right;color:#000;">: التليفون</span><br>
+                    <span style="float: right; padding-right: 2px; ">{{data.order.sender_address.phone}}</span>
+                  </p>
+                  <p style="overflow: hidden;">
+                    <span style="float:right;color:#000;">: المدينة</span><br>
+                    <span style="float: right; padding-right: 2px; ">{{data.order.sender_address.city.name}}</span>
+                  </p>
+                  <p style="overflow: hidden;">
+                    <span style="float:right;color:#000;">: الحى</span><br>
+                    <span style="float: right; padding-right: 2px; ">
+                      {{data.order.sender_address.district}}</span>
+                  </p>
+                </ion-card-header>
+                <ion-card-content>
+                  <!-- Add card content here! -->
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-col>
+        </ion-row>
+        <div class="corner"></div>
+        <div class="corner1"></div>
+      </ion-grid>
+      <ion-grid class="border-dashed">
+        <ion-row>
+         <ion-col col-12>
+            <!-- <ion-icon name="md-arrow-back"></ion-icon> -->
+            <div class="table-responsive">          
+              <table class="table" dir="rtl" style="float:right">
+                <thead>
+                  <tr>
+                    <th >الصنف</th>
+                    <th colspan="2">القيمة</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>قيمة الشحن</td>
+                    <td> <span style="float: right; padding-right:2px;">{{data.order.price}} ريال</span></td>
+                  </tr>
+                  <tr *ngIf="data.order.discount">
+                    <td>الخصم</td>
+                    <td><span style="float: right; padding-right: 2px;color:#f00;">{{data.order.discount}} %</span></td>
+                  </tr>  
+                  <tr *ngFor="let serv of services">
+                    <td>{{serv.title}}</td>   
+                    <td><span style="float: right; padding-right: 2px;">{{serv.amount}} ريال </span></td> 
+                  </tr>
+                  <tr>
+                    <td>أجمالى قيمة الشحنة</td>
+                    <td><span style="float: right; padding-right: 2px; ">{{totalPrice}} ريال</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="tableleft"></div>
+            </div>
+           
+          </ion-col>
+          <ion-col>
+            <p style="overflow: hidden;font-size:8px !important;" *ngIf="data.order.payment_method == 'rec'">
+              <span style="float:right;color:#000;"> سيتم التحصيل من المستلم</span>
+            </p>
+            <p style="overflow: hidden;font-size:8px !important;" *ngIf="data.order.payment_method == 'sender'">
+              <span style="float:right;color:#000;"> سيتم التحصيل من المرسل</span>
+            </p>
+            <p style="overflow: hidden;;" *ngIf="data.order.payment_method != 'sender' && data.order.payment_method != 'rec' ">
+              <span style="float:right;color:#000;"> سيتم التحصيل من حسابك </span>
+            </p>
+            <p style="overflow: hidden;;" *ngIf="data.order.collect ">
+              <span style="float:right;color:#000;"> سيتم التحصيل قيمة بضاعة من المستلم بقيمة<span style="padding-right:2px;color:#6E5694">{{ collect }} </span>ريال </span>
+            </p>
+          </ion-col>
+        </ion-row>
+        <div class="corner"></div>
+        <div class="corner1"></div>
+      </ion-grid>
+      <ion-grid>
+        <!-- <ion-row>
+          <ion-col col-12>
+            <div class="border">
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12 float-start>
+                    <div class="img-container">
+                      <ion-img src="{{data.order.qr_code.url}}"></ion-img>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-col>
+        </ion-row> -->
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5 offset-1>
+            <button ion-button full round (click)="newOrder()">طلب جديد</button>
+          </ion-col>
+          <ion-col col-5>
+            <button ion-button full round (click)="closeModal()">إنهاء</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="black"></div>
+    </div>
+  </div>
+  
+</ion-content>
+
+<!-- </div>
+  </div> -->

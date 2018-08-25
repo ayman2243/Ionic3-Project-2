@@ -1,0 +1,20 @@
+{
+  "name": "Glancee_User_App",
+  "app_id": "",
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/pro/api",
+      "proxyUrl": "Removed By Ayman Aljohary",
+      "rejectUnauthorized": false
+    },
+    {
+      "path": "/dev/api",
+      "proxyUrl": "Removed By Ayman Aljohary",
+      "rejectUnauthorized": false
+    }
+  ],
+  "integrations": {
+    "cordova": {}
+  }
+}

@@ -1,0 +1,251 @@
+page-orderdetails {
+  .scroll-content {
+   // margin-top: 224px !important;
+  }
+  .data {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: color($colors, secondary);
+  }
+  .label {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #c3c3c3 !important;
+    font-weight: 400 !important;
+  }
+  .label.toal {
+    font-size: 14px !important;
+  }
+  .AddLable {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 13px !important;
+    color: color($colors, secondary);
+  }
+  .edited.ion-md-arrow-back:before {
+    font-size: 3.5rem;
+    color: #FFF;
+    margin: auto;
+    top: 28px;
+    right: 40%;
+    line-height: inherit;
+    position: absolute;
+    font-weight: lighter;
+  }
+  .head {
+    font-size: 1.3rem !important;
+    line-height: 0.2;
+    color: color($colors, secondary);
+  }
+  .MyCard {
+    background: color($colors, secondary);
+  }
+  .border {
+    position: relative;
+    margin: auto;
+    border: 2px dotted #333;
+    border-radius: 5px; //height: 120px;
+  }
+  img {
+    display: block;
+    width: 110px;
+    height: 110px;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+  h4 {
+    margin-right: 10px;
+    line-height: 30px;
+    float: right;
+    margin-top: 0.6rem;
+    margin-bottom: 4px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .m-right {
+    margin-right: 10px;
+  }
+  .fixed-card {
+    position: fixed;
+    position: absolute;
+    z-index: 999;
+    background-color: color($colors, secondary);
+  }
+  .status-parent {
+    position: relative;
+  }
+  .verticalWhite {
+    position: absolute;
+    border-left: 1pt solid color($colors, secondary);
+    left: calc(100% - 9vw);
+    height: 100%;
+    margin-top: 14px;
+  }
+  .verticalLine {
+    position: absolute;
+    border-left: 1pt solid color($colors, primary);
+    left: calc(100% - 9vw);
+    height: 80vh;
+    margin-top: -1px;
+  }
+  .vertical {
+    position: absolute;
+    margin: 12px 50%;
+  }
+  .status {
+    position: absolute;
+    right: calc(100% - 23px);
+    height: 45px;
+    width: 45px;
+    margin: 0 50%;
+    border-radius: 50%;
+    background-color: color($colors, secondary);
+    border: solid 1pt color($colors, primary);
+  }
+  .step {
+    line-height: 20px;
+    margin-right: 10px;
+  }
+  .danger {
+    color: color($colors, danger);
+    font-size: smaller !important;
+    display: grid;
+  }
+  .serv1{
+    width:71%;
+    float:right;
+  
+  }
+  .table-responsive{
+    display:none;
+  
+  }
+  .serv2{
+    width:29%;
+    float:right;
+    // border-right: 1px solid #ddd;
+  }
+  .seemore ion-icon{
+    color: #fff;
+    font-size: 19px;
+    padding-left: 10px;
+  }
+  th, td {
+    // border-right: 1px solid #ddd;
+      padding: 8px;
+      text-align: right;
+      
+  }
+  th,tr:last-child{
+    border-bottom: 1px solid #ddd;
+    border-top:1px solid #ddd;
+  }
+  table {
+    // border-collapse: collapse !important;
+    // border:1px solid #fff;
+    width: 100%;
+    position:relative;
+    color:#fff;
+}
+.tableleft{
+  width: 1px;
+  height: 80%;
+  position: absolute;
+  background-color: #aaa;
+  right: 50%;
+  bottom: 6px;
+}
+
+  .time {
+    color: #444;
+    font-size: smaller !important;
+    display: grid;
+  }
+  .short-Hr {
+    color: #444;
+    width: 90vw;
+    margin: auto;
+  }
+  .step-Icon {
+    position: absolute;
+    right: 11px;
+    top: 19%;
+    font-size: 28px;
+    color: color($colors, primary);
+  }
+  .red {
+    color: color($colors, danger);
+  }
+  .card-md {
+    background: color($colors, light);
+    box-shadow: none;
+    font-size: 11px;
+    padding-top: 40px;
+    .card-content-md {
+      padding: 0;
+      /* overflow: hidden; */
+      text-align: center;
+      padding-bottom: 20px;
+      min-height: 38px;
+    }
+  }
+  .in-line {
+    display: inline-block;
+  }
+  .num-border {
+    display: inline-block;
+    color: color($colors, primary);
+    background: color($colors, secondary);
+    border: 1px solid#6E5694;
+    border-radius: 5px;
+    padding: 10px 20px;
+  } // .arrow {
+  //   position: relative;
+  // }
+  // .arrow::after {
+  //   content: "\f27d";
+  //   position: absolute;
+  //   font-family: "Ionicons";
+  //   top: 60px;
+  //   left: -15px;
+  //   font-size: 28px;
+  //   color: #6E5694;
+  // }
+  .paymentLabel {
+    font-size: 10px !important;
+    padding: 5px 8px;
+    margin: 0;
+    background-color: rgba(110, 86, 148, 0.3);
+    color: #fff;
+    display: inline;
+    border-radius: 5px;
+  }
+  .scroll-content {
+    border: none;
+    margin-top: 190px;
+  }
+  .alertmsg {
+    direction: rtl;
+    color: color($colors, danger);
+  }
+  .alertButton {
+    direction: rtl;
+    color: red;
+  }
+  .button-round-md {
+    max-width: 31vw;
+  }
+  .buttonCenter {
+    display: flex;
+    justify-content: center;
+  }
+  .label {
+    color: color($colors, secondary);
+  }
+  .toast {
+    text-align: right !important;
+  }
+  .content-md hr {
+    display: none;
+  }
+}

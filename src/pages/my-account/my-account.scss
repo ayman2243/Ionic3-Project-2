@@ -1,0 +1,61 @@
+page-my-account {
+  .card-button{
+    padding-bottom: 20px;
+  }
+  .button-full-md {
+    height: 100px;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  .button-md:hover:not(.disable-hover) {
+    background-color: transparent;
+  }
+  .parent-div {
+    position: relative;
+  }
+  .circle {
+    border: 3px solid color($colors, primary);
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    z-index: 100;
+    margin: 0 auto;
+  }
+  .icons {
+        /* position: absolute; */
+        font-family: "Ionicons";
+        /* top: 16%; */
+        /* left: 100px; */
+        font-size: 39px;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        color: color($colors, primary);
+        top: -50px;
+        position: relative;
+  }
+  .big-icons {
+    /* position: absolute; */
+    font-family: "Ionicons";
+    /* top: 16%; */
+    /* left: 100px; */
+    font-size: 39px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    color: color($colors, primary);
+    top: -49px;
+    position: relative;
+  }
+  h4 {
+    color: color($colors, primary);
+  }
+  ion-item{
+      .disable-ripple ion-button-effect {
+         display: none;
+      }
+  }
+}
+.toast{
+  text-align: right !important;
+}

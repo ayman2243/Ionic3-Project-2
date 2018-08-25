@@ -1,0 +1,78 @@
+// http://ionicframework.com/docs/theming/
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+.menuItems {
+  .item-md {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  button {
+    text-align: right !important;
+  }
+}
+
+ion-menu[side=right]>.menu-inner {
+  top: 56px !important;
+}
+
+.menuFot {
+  width: 70%;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.alertmsg {
+  direction: rtl;
+  color: color($colors, danger);
+  font-size: 15px !important;
+  .alert-button-group {
+    direction: ltr;
+  }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    // .alert-wrapper {
+    //   //transform: scale(1.8) !important;
+    // }
+  }
+}
+
+.MyLoader {
+  
+  .loading-content {
+    left: 16px;
+    position: relative;
+  }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .loading-wrapper {
+      transform: scale(1.4) !important;
+    }
+    .loading-content {
+      font-size: 12px !important; // left: 70px;
+      // position: relative;
+    }
+  }
+
+  
+  
+}
+.addressOptions {
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  // .alert-wrapper {
+  //   //transform: scale(1.4) !important;
+  // }
+}
+}
+
+.alert-md .alert-checkbox-label{
+  text-align: right !important;
+}

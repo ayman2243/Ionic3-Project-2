@@ -1,0 +1,48 @@
+page-call-us {
+  h1{
+    font-size: 16px !important; 
+    text-align: center !important;
+    width: 100%;
+  }
+  p{
+    padding: 20px 0;
+    margin: 0;
+    text-align: center;
+    color:#999;
+  }
+
+  .support{
+    overflow: hidden;
+    a{
+      text-align: center; padding: 5px; width: 50%; float: left;     text-decoration: none;
+      span.content{
+        position: relative;
+        top: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 90px;
+        display: inline-block;
+      }
+      span.icon{
+        position: relative; background: color($colors, primary); color: #fff; width: 30px; height: 30px; display: inline-block; border-radius: 50%; left: 10px;
+        ion-icon{
+          line-height: 30px;
+        }
+      }
+    }
+    
+  }
+
+  .social_media{
+    text-align: center;
+    a{
+      display: inline-block;
+      padding: 0 10px;
+      ion-icon{
+        font-size: 30px !important;
+      }
+    }
+  }
+ 
+}

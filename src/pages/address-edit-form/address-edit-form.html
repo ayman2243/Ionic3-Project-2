@@ -1,0 +1,165 @@
+<!--
+  Generated template for the AddressEditFormPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>تعديل عنوان</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <div style=" width: 100%;" *ngIf="preloader"> 
+      <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+    </div>
+
+  <form (ngSubmit)="EditMyAddress()" [formGroup]="EditMainAdress" *ngIf="!preloader">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <div class="subhead" text-center>
+            بيانات عنوانك
+          </div>
+          <h6 padding-top no-margin ion-text text-end>البيانات الأساسية</h6>
+        </ion-col>
+        <ion-col no-padding col-12>
+          <ion-item no-padding>
+            <ion-label float-right text-end stacked>* اسم العنوان</ion-label>
+            <ion-input formControlName="label" [(ngModel)]="formdata.label" type="text" name="label" value="{{ mainAddress?.address.label }}" placeholder="اسم العنوان"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-select [selectOptions]="selectOptions"  formControlName="country_id" [(ngModel)]="formdata.country_id" name="country_id" dir="rtl" (ionChange)="selectCity()"  okText="تم" cancelText="الغاء" placeholder="أختر-دولتك">
+              <ion-option *ngFor="let con of countries" [selected]="mainAddress?.address.country_id == con.id" value="{{ con.id }}">{{ con.name }}</ion-option>
+            </ion-select>
+            <ion-label float-right text-end stacked></ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-select [selectOptions]="selectOptions" formControlName="city_id" [(ngModel)]="formdata.city_id" name="city_id" dir="rtl" okText="تم"  cancelText="الغاء" placeholder="أختر-مدينتك">
+              <ion-option *ngFor="let city of cities.cities" [selected]="mainAddress?.address.city_id == city.id" value="{{city.id}}">{{city.name}}</ion-option>
+            </ion-select>
+            <ion-label float-right text-end stacked> </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-label  float-right text-end stacked>* الحى</ion-label>
+            <ion-input formControlName="district" [(ngModel)]="formdata.district" name="district" value="{{  mainAddress?.address.district }}" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-label  float-right text-end stacked>تفاصيل العنوان</ion-label>
+            <ion-input formControlName="st_no" [(ngModel)]="formdata.st_no" name="st_no" value="{{  mainAddress?.address.st_no }}" placeholder="رقم شارع او علامة محيطة" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-label float-right text-end stacked>* رقم الجوال</ion-label>
+            <ion-input formControlName="address_phone" [(ngModel)]="formdata.address_phone" name="address_phone" value="{{ mainAddress?.address.phone }}" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col (click)="getLocation()" col-12>
+          <ion-item no-padding>
+            <ion-label text-end  float-right stacked>تحديد موقعك علي الخريطة</ion-label>
+            <ion-input text-end type="text" formControlName="location" [(ngModel)]="formdata.location"  placeholder="اضغط هنا اذا كان موقعك الحالي هو العنوان" name="location" disabled></ion-input>
+            <ion-icon name="locate" item-start style="position: relative; top: 9px; left: 10px; color: #999;"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- <div class="subhead togglerMoreInfo" text-center>
+        بيانات اضافية 
+        <ion-icon name="menu" style="left: 20px; position: relative;"></ion-icon>
+      </div> -->
+
+      <div class="MoreInfo">
+        <ion-row>
+          <ion-col no-padding col-12>
+            
+            <ion-item no-padding>
+              <ion-label  float-right text-end stacked>رقم الهاتف 2</ion-label>
+              <ion-input formControlName="secondary_phone" [(ngModel)]="formdata.secondary_phone" name="secondary_phone" value="{{ mainAddress?.address.secondary_phone }}" type="tel"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col col-12>
+            <ion-item no-padding>
+              <ion-label float-right text-end stacked>رقم المبنى</ion-label>
+              <ion-input formControlName="building_no" [(ngModel)]="formdata.building_no" name="building_no" value="{{ mainAddress?.address.building_no }}" type="tel"></ion-input>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item no-padding>
+              <ion-label float-right text-end stacked>الشارع</ion-label>
+              <ion-input  formControlName="st_no" [(ngModel)]="formdata.st_no" name="st_no" value="{{ mainAddress?.address.st_no }}"  type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item no-padding>
+              <ion-label float-right text-end stacked>الرمز البريدى</ion-label>
+              <ion-input formControlName="zip_code" [(ngModel)]="formdata.zip_code" name="zip_code" value="{{ mainAddress?.address.zip_code }}" type="tel"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item no-padding>
+              <ion-label float-right text-end stacked>المحافظة/ولاية</ion-label>
+              <ion-input formControlName="town" [(ngModel)]="formdata.town" name="town" value="{{ mainAddress?.address.town }}"  type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-12>
+            <ion-item no-padding>
+              <ion-label float-right text-end stacked>أخرى</ion-label>
+              <ion-input formControlName="mark" [(ngModel)]="formdata.mark" name="mark" value="{{ mainAddress?.address.mark }}"  type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    </div>
+        <ion-row>
+          <ion-col col-12>
+            <button ion-button block round color="primary" [disabled]="EditMainAdress.invalid" type="submit">حفظ العنوان</button>
+          </ion-col>
+        </ion-row>
+    
+    </ion-grid>
+  
+  </form>
+
+</ion-content>

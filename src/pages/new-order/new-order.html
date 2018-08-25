@@ -1,0 +1,402 @@
+<!--
+  Generated template for the NewOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>طلب جديد</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <div style="overflow:hidden;">
+      <div style="float:left; width:50%; border-right:solid 1px #eaeaea;" text-center>سعر الشحن &nbsp; &nbsp; {{prices.charge_price}}</div>
+      <div style="float:right; width:50%;" text-center>سعر التوصيل &nbsp; &nbsp; <span> {{prices.delivery_price}}</span> </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <form (ngSubmit)="send()" [formGroup]="OrderForm">
+    <div class="subhead" text-center>
+      عنوان المرسل
+    </div>
+
+    <div padding>
+      <ion-segment mode="ios" name="sender_addr" formControlName="sender_addr" [(ngModel)]="OrderData.sender_addr">
+        <ion-segment-button value="id">
+          اختيار عنوان
+        </ion-segment-button>
+        <ion-segment-button value="new">
+          عنوان جديد
+        </ion-segment-button>
+        <ion-segment-button value="main">
+          عنواني
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div [ngSwitch]="OrderData.sender_addr">
+      <ion-list *ngSwitchCase="'main'">
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'new'">
+        <div text-end class="infos">
+          <ion-item no-padding>
+            <ion-label float-right text-end stacked>* الاسم الثلاثي</ion-label>
+            <ion-input name="sender_label" formControlName="sender_label" [(ngModel)]="OrderData.sender_label"  type="text"></ion-input>
+          </ion-item>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6>
+              <ion-item no-padding>
+                <ion-select [selectOptions]="selectOptions" dir="rtl" name="sender_city_id" formControlName="sender_city_id" [(ngModel)]="OrderData.sender_city_id" okText="تم" cancelText="الغاء" placeholder="أختر-المدينة *">
+                    <ion-option *ngFor="let city of citiesSender.cities" value="{{city.id}}">{{city.name}}</ion-option>
+                </ion-select>
+                <ion-label loat-right text-end stacked></ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col col-6>
+              <ion-item no-padding>
+                <ion-select [selectOptions]="selectOptions" dir="rtl" (ionChange)="selectCitySender()" name="sender_country_id" formControlName="sender_country_id" [(ngModel)]="OrderData.sender_country_id" okText="تم" cancelText="الغاء"  placeholder="أختر -الدولة *">
+                    <ion-option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</ion-option>
+                </ion-select>
+                <ion-label loat-right text-end stacked></ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+          <ion-item no-padding>
+            <ion-label loat-right text-end stacked>* الحي</ion-label>
+            <ion-input  name="sender_district" formControlName="sender_district" [(ngModel)]="OrderData.sender_district" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item no-padding>
+            <ion-label loat-right  text-end stacked>تفاصبل العنوان</ion-label>
+            <ion-input name="sender_st_no" formControlName="sender_st_no" [(ngModel)]="OrderData.sender_st_no" placeholder="رقم شارع او علامة محيطة" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item no-padding>
+            <ion-label loat-right text-end stacked>* رقم الجوال</ion-label>
+            <ion-input name="sender_phone" formControlName="sender_phone" [(ngModel)]="OrderData.sender_phone" text-end type="tel"></ion-input>
+          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col (click)="getLocation('s')" col-12>
+                <ion-item no-padding>
+                  <ion-label text-end  float-right stacked>تحديد الموقع علي الخريطة</ion-label>
+                  <ion-input text-end type="text" formControlName="slocation" name="slocation" [(ngModel)]="OrderData.slocation" placeholder="اضغط هنا اذا كان موقعك الحالي هو العنوان" disabled></ion-input>
+                  <ion-icon name="locate" item-start style="position: relative; top: 9px; left: 0px; color: #999;"></ion-icon>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div text-end style="padding:20px 0 10px 0;">
+          <span style="position: relative; top: -7px; right: 10px;">حفظ العنوان</span>
+          <ion-checkbox mode="ios" name="sender_save_addr" formControlName="sender_save_addr" [(ngModel)]="OrderData.sender_save_addr" color="primary" checked="true"></ion-checkbox>
+        </div>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'id'">
+        <div *ngIf="otherAdd?.length > 7" style="height:200px; overflow:scroll;">
+          <ion-list radio-group name="sender_addr_id" formControlName="sender_addr_id" [(ngModel)]="OrderData.sender_addr_id">
+            <ion-item *ngFor="let add of otherAdd">
+              <ion-label float-right text-end stacked>{{add.label}}</ion-label>
+              <ion-radio value="{{add.id}}"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div *ngIf="otherAdd?.length < 7">
+            <ion-list radio-group name="sender_addr_id" formControlName="sender_addr_id" [(ngModel)]="OrderData.sender_addr_id">
+              <ion-item *ngFor="let add of otherAdd">
+                <ion-label float-right text-end stacked>{{add.label}}</ion-label>
+                <ion-radio value="{{add.id}}"></ion-radio>
+              </ion-item>
+            </ion-list>
+          </div>
+      </ion-list>
+    </div>
+
+
+    <div class="subhead" text-center>
+      عنوان المستلم
+    </div>
+
+    <div padding>
+      <ion-segment mode="ios" name="receiver_addr" formControlName="receiver_addr" [(ngModel)]="OrderData.receiver_addr">
+        <ion-segment-button value="id">
+          اختيار عنوان
+        </ion-segment-button>
+        <ion-segment-button value="new">
+          عنوان جديد
+        </ion-segment-button>
+        <ion-segment-button value="main">
+          عنواني
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div [ngSwitch]="OrderData.receiver_addr">
+      <ion-list *ngSwitchCase="'main'">
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'new'">
+        <div text-end class="infos">
+          <ion-item no-padding>
+            <ion-label float-right text-end stacked>* الاسم الثلاثي</ion-label>
+            <ion-input  name="receiver_label" formControlName="receiver_label" [(ngModel)]="OrderData.receiver_label" type="text"></ion-input>
+          </ion-item>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <ion-item no-padding>
+                  <ion-select [selectOptions]="selectOptions" dir="rtl" name="receiver_city_id" formControlName="receiver_city_id" [(ngModel)]="OrderData.receiver_city_id" okText="تم" cancelText="الغاء" placeholder="أختر-المدينة *">
+                      <ion-option *ngFor="let city of citiesReceiver.cities" value="{{city.id}}">{{city.name}}</ion-option>
+                  </ion-select>
+                  <ion-label float-right text-end stacked></ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col col-6>
+                  <ion-item no-padding>
+                    <ion-select [selectOptions]="selectOptions" dir="rtl" (ionChange)="selectCityReceiver()" name="receiver_country_id" formControlName="receiver_country_id" [(ngModel)]="OrderData.receiver_country_id" okText="تم" cancelText="الغاء"  placeholder="أختر -الدولة *">
+                        <ion-option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</ion-option>
+                    </ion-select>
+                    <ion-label loat-right text-end stacked></ion-label>
+                  </ion-item>
+                </ion-col>
+            </ion-row>
+            </ion-grid>
+
+          <ion-item no-padding>
+            <ion-label loat-right  text-end stacked>* الحي</ion-label>
+            <ion-input name="receiver_district" formControlName="receiver_district" [(ngModel)]="OrderData.receiver_district"  type="text"></ion-input>
+          </ion-item>
+
+          <ion-item no-padding>
+            <ion-label loat-right  text-end stacked>تفاصبل العنوان</ion-label>
+            <ion-input name="receiver_st_no" formControlName="receiver_st_no" [(ngModel)]="OrderData.receiver_st_no" placeholder="رقم شارع او علامة محيطة" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item no-padding>
+            <ion-label loat-right text-end stacked>* رقم الجوال</ion-label>
+            <ion-input name="receiver_phone" formControlName="receiver_phone" [(ngModel)]="OrderData.receiver_phone" text-end type="tel"></ion-input>
+          </ion-item>
+          <ion-grid>
+              <ion-row>
+                <ion-col (click)="getLocation('r')" col-12>
+                  <ion-item no-padding>
+                    <ion-label text-end  float-right stacked>تحديد الموقع علي الخريطة</ion-label>
+                    <ion-input text-end type="text" formControlName="rlocation" name="rlocation" [(ngModel)]="OrderData.rlocation" placeholder="اضغط هنا اذا كان موقعك الحالي هو العنوان" disabled></ion-input>
+                    <ion-icon name="locate" item-start style="position: relative; top: 9px; left: 0px; color: #999;"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        </div>
+        <div text-end style="padding:20px 0 10px 0;">
+          <span style="position: relative; top: -7px; right: 10px;">حفظ العنوان</span>
+          <ion-checkbox name="receiver_save_addr" formControlName="receiver_save_addr" [(ngModel)]="OrderData.receiver_save_addr" mode="ios" color="primary" checked="true"></ion-checkbox>
+        </div>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'id'">
+        <div *ngIf="otherAdd?.length >= 7" style="height:200px; overflow:scroll;">
+          <ion-list radio-group name="receiver_addr_id" formControlName="receiver_addr_id" [(ngModel)]="OrderData.receiver_addr_id">
+            <ion-item *ngFor="let add of otherAdd">
+              <ion-label float-right text-end stacked>{{add.label}}</ion-label>
+              <ion-radio value="{{add.id}}"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div *ngIf="otherAdd?.length < 7">
+            <ion-list radio-group name="receiver_addr_id" formControlName="receiver_addr_id" [(ngModel)]="OrderData.receiver_addr_id">
+              <ion-item *ngFor="let add of otherAdd">
+                <ion-label float-right text-end stacked>{{add.label}}</ion-label>
+                <ion-radio value="{{add.id}}"></ion-radio>
+              </ion-item>
+            </ion-list>
+          </div>
+      </ion-list>
+    </div>
+
+    <div class="subhead toginfo" text-center>
+      تحديد الوقت
+      <ion-icon name="menu" style="left: 20px; position: relative;"></ion-icon>
+    </div>
+
+    <div class="infos info">
+      <ion-grid (ionChange)="reSetTheTime()" radio-group no-padding name="day" formControlName="day" [(ngModel)]="OrderData.day">
+        <ion-row>
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>بعد غدا</ion-label>
+              <ion-radio value="after_tomorrow"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>غدا</ion-label>
+              <ion-radio value="tomorrow"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>اليوم</ion-label>
+              <ion-radio [disabled]="currentHour >= 20" value="today"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid radio-group no-padding class="time" name="start_hour" formControlName="start_hour" [(ngModel)]="OrderData.start_hour">
+        <ion-row>
+          <ion-col no-padding col-4>
+            <ion-item no-padding style="border:none;">
+              <ion-label text-center>04 - 02</ion-label>
+              <ion-radio [disabled]="currentHour >= 16 && OrderData.day == 'today'" value="04 - 02"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>02 - 12</ion-label>
+              <ion-radio [disabled]="currentHour >= 14 && OrderData.day == 'today'" value="02 - 12"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>12 - 10</ion-label>
+              <ion-radio [disabled]="currentHour >= 12 && OrderData.day == 'today'" value="12 - 10"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+
+        </ion-row>
+        <ion-row>
+
+
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>10 - 08</ion-label>
+              <ion-radio [disabled]="currentHour >= 22 && OrderData.day == 'today'" value="10 - 08"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>08 - 06</ion-label>
+              <ion-radio [disabled]="currentHour >= 20 && OrderData.day == 'today'" value="08 - 06"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col no-padding col-4>
+            <ion-item no-padding>
+              <ion-label text-center>06 - 04</ion-label>
+              <ion-radio [disabled]="currentHour >= 18 && OrderData.day == 'today'" value="06 - 04"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+
+
+
+    <div class="subhead" text-center>
+      طريقة الدفع
+    </div>
+
+    <div class="infos">
+      <ion-grid radio-group name="payment_method" formControlName="payment_method" [(ngModel)]="OrderData.payment_method">
+        <ion-row>
+          <ion-col col-4>
+            <ion-item no-padding>
+              <ion-label text-center>حسابي</ion-label>
+              <ion-radio value="acc"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col col-4>
+            <ion-item no-padding>
+              <ion-label text-center>المستلم</ion-label>
+              <ion-radio value="rec"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col col-4>
+            <ion-item no-padding>
+              <ion-label text-center>المرسل</ion-label>
+              <ion-radio value="sender"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="subhead" text-center>
+      تحصيل قيمة البضاعة من المستلم
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item  no-padding>  
+            <ion-input name="collect" formControlName="collect" [(ngModel)]="OrderData.collect" dir="rtl" type="number" placeholder="0"></ion-input>
+            <ion-label float-right text-end stacked>قيمة البضاعة</ion-label>
+          </ion-item>
+          <p ion-text text-end no-margin margin-top> هذا هو المبلغ الذى سيتم إرجاعه لك بعد استلامه- </p>
+          <p ion-text text-end no-margin>يرجى عدم إضافة قيمة التوصيل على قيمة البضاعة ماعدى فى حال كان الدفع على الحساب </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="subhead" text-center>
+      (معلومات إضافية (غير إلزامية 
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          
+            <!-- <ion-item>
+              <ion-label float-right text-end stacked>خدمات اضافية</ion-label>
+              <ion-select  name="extras" formControlName="extras" [(ngModel)]="OrderData.extras" multiple="true" dir="rtl" cancelText="إلغاء" okText="تاكيد">
+                <ion-option *ngFor="let sev of extra_services?.extra_services" value="{{sev.id}}">{{sev.title}}</ion-option>
+              </ion-select>
+            </ion-item> -->
+
+            <ion-item no-padding>
+              <ion-select [selectOptions]="selectOptions" dir="rtl" name="extras" formControlName="extras" [(ngModel)]="OrderData.extras" multiple="true" okText="تم" cancelText="الغاء"  placeholder="خدمات اضافية">
+                  <ion-option *ngFor="let sev of extra_services?.extra_services" value="{{sev.id}}">{{sev.title}}</ion-option>
+              </ion-select>
+              <ion-label loat-right text-end stacked></ion-label>
+            </ion-item>
+          
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <div class="infos">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <button margin-vertical ion-button round full [disabled]="OrderForm.invalid" type="submit">تأكيد</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </form>
+
+</ion-content>

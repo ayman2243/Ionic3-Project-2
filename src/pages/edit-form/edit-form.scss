@@ -1,0 +1,37 @@
+page-edit-form {
+    .subhead
+  {
+    margin: 10px 0;
+    background-color: color($colors,primary);
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 0;
+    overflow: hidden;
+
+    span
+    {
+      margin: 0 10px;
+      &:first-child
+      {
+        float: right;
+        background-color: #5b467b;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        color: #fff;
+      }
+      &:last-child
+      {
+        float: left;
+        width: 25px;
+        height: 25px;
+        color: color($colors,primary);
+        
+      }
+    }
+  }
+
+}
+.toast{
+  text-align: right !important;
+}

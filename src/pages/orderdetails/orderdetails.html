@@ -1,0 +1,187 @@
+<!--
+  Generated template for the OrderdetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-padding no-margin>
+  <ion-navbar color="primary">
+    <!--
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    -->
+    <ion-title>بيانات الطلب</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <ion-grid no-padding style="background-color:#342858; padding-top: 20px;" (click)="seeMore()">
+    <div class="verticalWhite"></div>
+    <ion-row no-padding>
+      <ion-col col-10 col-sm-10 col-lg-10 col-md-10 no-padding>
+        <ion-row margin-bottom>
+          <ion-col col-6 no-margin no-padding>
+            <div>
+              <div text-start margin-right class="label" margin-right dir="rtl">
+                إلى
+              </div>
+              <p text-end margin-right class="AddLable"> {{data?.receiver_address.label}}</p>
+
+              <p text-end margin-right class="data">
+                {{data?.receiver_address.district}} , {{data?.receiver_address.city.name}}
+              </p>
+            </div>
+          </ion-col>
+          <ion-col col-6 no-margin no-padding>
+            <div>
+              <div text-start margin-right class="label" margin-right dir="rtl">
+                من
+              </div>
+              <p text-end margin-right class="AddLable"> {{data?.sender_address.label}}</p>
+              <p text-end margin-right class="data">
+                {{data?.sender_address.district}} , {{data?.sender_address.city.name}}
+              </p>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row no-margin>
+          <ion-col col-6 no-margin no-padding>
+            <div text-right class="data" dir="rtl">
+              <span class="label" margin-right dir="rtl">حالة الشحنة :</span>
+              <p style="display:inline" *ngIf="data?.status == 'pending'">جديد </p>
+              <p style="display:inline" *ngIf="data?.status == 'approved'">تم التأكيد</p>
+              <p style="display:inline" *ngIf="data?.status == 'delivered'">تم التوصيل </p>
+              <p style="display:inline" *ngIf="data?.status == 'refunded'">ملغاه</p>
+            </div>
+          </ion-col>
+          <ion-col col-6 no-margin no-padding>
+            <div text-right class="data">{{data?.serial}}
+              <span class="label" margin-right dir="rtl"> كود الشحنة : </span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row no-margin>
+          <ion-col col-12>
+           <div class="seemore"><ion-icon name="more" ></ion-icon></div>
+            <div class="table-responsive">          
+              <table class="table" dir="rtl" style="float:right">
+                <thead>
+                  <tr>
+                    <th>الصنف</th>
+                    <th colspan="2">القيمة</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>قيمة الشحن</td>
+                    <td>
+                      <span style="float: right; padding-right:2px;">{{data?.price}} ريال</span>
+                    </td>
+                  </tr>
+                  <tr *ngIf="data?.discount">
+                    <td>الخصم</td>
+                    <td>
+                      <span style="float: right; padding-right: 2px;color:#eb6b6b;">{{data?.discount}} %</span>
+                    </td>
+                  </tr> 
+                  <tr *ngFor="let serv of services">
+                      <td>{{serv?.title}}</td>   
+                      <td><span style="float: right; padding-right: 2px;">{{serv?.amount}} ريال </span></td> 
+                    </tr>
+                  <tr>
+                    <td>أجمالى قيمة الشحنة</td>
+                    <td>
+                      <span style="float: right; padding-right: 2px; ">{{totalPrice}} ريال</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <ion-col col-12 no-margin no-padding *ngIf="data?.collect">
+                <div text-right class="data">
+                  <span class="label" margin-right> ريال{{data?.collect}} سيتم تحصيل قيمة بضاعة من المستلم بقيمة </span>
+                </div>
+              </ion-col> -->
+              
+              <ion-col col-12>
+                  <p style="overflow: hidden;font-size:8px !important;" *ngIf="data?.payment_method == 'rec'">
+                    <span style="float:right;color:#c3c3c3;"> سيتم التحصيل من المستلم</span>
+                  </p>
+                  <p style="overflow: hidden;font-size:8px !important;" *ngIf="data?.payment_method == 'sender'">
+                    <span style="float:right;color:#c3c3c3;"> سيتم التحصيل من المرسل</span>
+                  </p>
+                  <p style="overflow: hidden;;" *ngIf="data?.payment_method != 'sender' && data?.payment_method != 'rec' ">
+                    <span style="float:right;color:#c3c3c3;"> سيتم التحصيل من حسابك </span>
+                  </p>
+                  <p style="overflow: hidden;;" *ngIf="data?.collect ">
+                    <span style="float:right;color:#c3c3c3;"> سيتم تحصيل قيمة بضاعة من المستلم بقيمة<span style="padding-right:2px;color:#fff">{{collect}} </span>ريال </span>
+                  </p>
+                </ion-col>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <!-- بيانات أول خطوة وهى خطوة قيد المراجعة وستكون ثابتة -->
+      <ion-col col-2>
+        <div class="status-parent">
+          <div class="vertical">
+            <div class="status">
+              <ion-icon class="step-Icon" color="secondary" name="md-clipboard"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="verticalLine"></div>
+  <ion-grid *ngIf="data?.statuses">
+    <ion-row no-margin *ngFor="let stat of data.statuses" >
+      <ion-col col-5>
+        <h2 text-center class="step">
+          {{myDate(stat?.created_at) | date:"dd/MM "}}
+          <span class="time"> {{myDate(stat?.created_at) | date:"hh:mm "}}</span>
+        </h2>
+      </ion-col>
+      <ion-col col-5>
+        <h2 text-right class="step">
+          {{stat.status}}
+          <span class="danger">{{stat.comment}}</span>
+        </h2>
+      </ion-col>
+      <ion-col col-2>
+        <div class="status-parent">
+          <div class="vertical">
+            <div class="status">
+              <ion-icon class="step-Icon" color="secondary" name="{{stat.ionicon}}"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>
+<ion-footer id="foot">
+  <ion-toolbar color="secondary">
+    <ion-grid no-padding no-margin>
+      <ion-row justify-content-around no-padding no-margin>
+        <ion-col class="buttonCenter" *ngIf="data?.status == 'pending'" col no-padding no-margin>
+          <button ion-button color="danger" full round (click)="cancelOrder()">الغاء الطلب</button>
+        </ion-col>
+        <ion-col class="buttonCenter" col no-padding no-margin>
+          <button ion-button color="primary" full round (click)="myAccount()">العودة لحسابى</button>
+        </ion-col>
+        <ion-col class="buttonCenter" col no-padding no-margin>
+          <button ion-button color="primary" full round (click)="NewOrder()">إضافة طلب آخر</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

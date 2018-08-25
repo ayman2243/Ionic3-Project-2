@@ -1,0 +1,65 @@
+<!--
+  Generated template for the EditBankPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    -->
+    <ion-title>تعديل معلومات البنك</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <form (ngSubmit)="Submit()" [formGroup]="editForm">
+        <ion-row>
+          <ion-col col-12 margin-bottom class="select">
+              <ion-item no-padding>
+                <ion-select name="bank_id" formControlName="bank_id" [(ngModel)]="editData.bank_id" dir="rtl" okText="تم" cancelText="الغاء" placeholder=" اختار البنك *">
+                    <ion-option [selected]="wdInfo?.bank_id == bank.id" *ngFor="let bank of banks?.banks" value="{{ bank.id }}">{{ bank.name }}</ion-option>
+                </ion-select>
+                <ion-label loat-right text-end stacked></ion-label>
+              </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item no-padding>
+                <ion-label float-right text-end stacked>* رقم الحساب - الايبان</ion-label>
+                <ion-input name="acc_no" formControlName="acc_no" [(ngModel)]="editData.acc_no"  dir="rtl" value="{{wdInfo?.acc_no}}" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-12>
+            <ion-item no-padding>
+                <ion-label float-right text-end stacked>* أسم صاحب الحساب</ion-label>
+                <ion-input name="acc_name" formControlName="acc_name" [(ngModel)]="editData.acc_name" type="text" value="{{wdInfo?.acc_name}}" ></ion-input>
+            </ion-item>
+          </ion-col>
+    
+    
+        </ion-row>
+        <ion-row>
+          <ion-col col-12 margin-top>
+            <button ion-button round full type="submit" [disabled]="editForm.invalid">حفظ</button>
+          </ion-col>
+          <ion-col col-12>
+            <button ion-button round color="danger" (click)="Delete(wdInfo?.id)" full type="button">حذف الحساب</button>
+          </ion-col>
+        </ion-row>
+        </form>
+      </ion-grid>
+</ion-content>

@@ -1,0 +1,102 @@
+<!--
+  Generated template for the EditOtherAddressesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>تعديل عنوان</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <form (ngSubmit)="EditAddress()" [formGroup]="EditOtherAdress">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <div class="subhead" text-center>
+            بيانات عنوانك
+          </div>
+          <h6 padding-top no-margin ion-text text-end>البيانات الأساسية</h6>
+        </ion-col>
+        <ion-col no-padding col-12>
+          <ion-item no-padding>
+            <ion-label float-right text-end stacked>* اسم العنوان</ion-label>
+            <ion-input formControlName="label" [(ngModel)]="addressdata.label" type="text" name="label" value="{{ otherAddress?.label }}" placeholder="اسم العنوان"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+
+        <ion-col col-12 col-md-6>
+          <ion-item no-padding>
+            <ion-select  [selectOptions]="selectOptions" formControlName="country_id" [(ngModel)]="addressdata.country_id" name="country_id" dir="rtl" (ionChange)="selectCity()"  okText="تم" cancelText="الغاء" placeholder="اختر-الدولة">
+              <ion-option *ngFor="let con of countries" [selected]="otherAddress?.country_id == con.id" value="{{ con.id }}">{{ con.name }}</ion-option>
+            </ion-select>
+            <ion-label float-right text-end stacked></ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item no-padding>
+            <ion-select [selectOptions]="selectOptions" formControlName="city_id" [(ngModel)]="addressdata.city_id" name="city_id" dir="rtl" okText="تم"  cancelText="الغاء" placeholder="أختر-مدينتك">
+              <ion-option *ngFor="let city of cities.cities" [selected]="otherAddress?.city_id == city.id" value="{{city.id}}">{{ city.name }}</ion-option>
+            </ion-select>
+            <ion-label float-right text-end stacked></ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-label  float-right text-end stacked>* الحى</ion-label>
+            <ion-input formControlName="district" [(ngModel)]="addressdata.district" name="district" value="{{  otherAddress?.district }}" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item no-padding>
+            <ion-label float-right text-end stacked>تفاصيل العنوان</ion-label>
+            <ion-input formControlName="st_no" name="st_no" [(ngModel)]="addressdata.st_no" value="{{  otherAddress?.st_no }}" type="text" placeholder="رقم شارع او علامة محيطة"  ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-label float-right text-end stacked>* رقم الجوال</ion-label>
+            <ion-input formControlName="address_phone" [(ngModel)]="addressdata.address_phone" name="address_phone" value="{{ otherAddress?.phone }}" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col (click)="getLocation()" col-12>
+          <ion-item no-padding>
+            <ion-label text-end  float-right stacked>تحديد الموقع علي الخريطة</ion-label>
+            <ion-input text-end type="text"  formControlName="location" [(ngModel)]="addressdata.location" placeholder="اضغط هنا اذا كان موقعك الحالي هو العنوان" name="location" disabled></ion-input>
+            <ion-icon name="locate" item-start style="position: relative; top: 9px; left: 10px; color: #999;"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+        <ion-row>
+          <ion-col col-12>
+            <button ion-button block round color="primary" [disabled]="EditOtherAdress.invalid" type="submit">حفظ العنوان</button>
+          </ion-col>
+        </ion-row>
+    
+    </ion-grid>
+  
+  </form>
+
+</ion-content>

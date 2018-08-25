@@ -1,0 +1,673 @@
+<!--
+  Generated template for the AOrdersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    -->
+    <ion-title>شحناتي</ion-title>
+
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event, 'all')">
+    <ion-refresher-content pullingIcon="md-refresh"  refreshingSpinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div padding fixed style="padding: 5px;">
+    <ion-segment no-padding mode="ios" [(ngModel)]="pet">
+
+      <ion-segment-button (click)="getData('rec', 'new')" value="va2">
+        أنا المستلم
+      </ion-segment-button>
+      <ion-segment-button (click)="getData('sender', 'new')" value="va3">
+        أنا المرسل
+      </ion-segment-button>
+      <ion-segment-button value="va4">
+        الكل
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="pet">
+
+
+    <ion-list *ngSwitchCase="'va2'">
+
+      <div padding style=" padding: 5px; padding-top: 0; margin-bottom: 0; ">
+        <ion-segment mode="ios" [(ngModel)]="pet3">
+          <ion-segment-button (click)="getData('rec', 'delivered')" value="delivered">
+             تم الشحن
+          </ion-segment-button>
+          <ion-segment-button (click)="getData('rec', 'in_progress')" value="approved">
+             قيد الشحن
+          </ion-segment-button>
+          <ion-segment-button (click)="getData('rec', 'new')" value="pending">
+             جديد
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      <div [ngSwitch]="pet3">
+        <ion-list *ngSwitchCase="'delivered'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="receiver_delivered.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+              <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let rec of receiver_delivered" (click)="viewOrder(rec)">
+                <div class="CardItem borderRightYellow">
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{rec.price - (rec.price * (rec.discount/100)) }} ريال</h4>
+                        <h6>{{rec.serial}}</h6>
+                        <span>{{myDate(rec.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{rec.sender_address.label}}</h5>
+                        <p>هاتف {{rec.sender_address.phone}}</p>
+                        <h5> الي {{rec.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{rec.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'rec', 'delivered')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+        <ion-list *ngSwitchCase="'approved'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="receiver_approved.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+              <ion-col  col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let rec of receiver_approved" (click)="viewOrder(rec)">
+                <div class="CardItem borderRightGree">
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{rec.price - (rec.price * (rec.discount/100)) }} ريال</h4>
+                        <h6>{{rec.serial}}</h6>
+                        <span>{{myDate(rec.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{rec.sender_address.label}}</h5>
+                        <p>هاتف {{rec.sender_address.phone}}</p>
+                        <h5> الي {{rec.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{rec.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'rec', 'in_progress')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+        <ion-list *ngSwitchCase="'pending'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="receiver_pending.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+              <ion-col  col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let rec of receiver_pending" (click)="viewOrder(rec)">
+                <div class="CardItem borderRightBlue">
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{rec.price - (rec.price * (rec.discount/100)) }} ريال</h4>
+                        <h6>{{rec.serial}}</h6>
+                        <span>{{myDate(rec.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{rec.sender_address.label}}</h5>
+                        <p>هاتف {{rec.sender_address.phone}}</p>
+                        <h5> الي {{rec.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{rec.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'rec', 'new')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+      </div>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'va3'">
+
+      <div padding style="padding: 5px; padding-top: 0; margin-bottom: 0;">
+        <ion-segment mode="ios" [(ngModel)]="pet4">
+          <ion-segment-button (click)="getData('sender', 'delivered')" value="delivered">
+             تم الشحن
+          </ion-segment-button>
+          <ion-segment-button (click)="getData('sender', 'in_progress')" value="approved">
+             قيد الشحن
+          </ion-segment-button>
+          <ion-segment-button (click)="getData('sender', 'new')" value="pending">
+             جديد
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      <div [ngSwitch]="pet4">
+
+        <ion-list *ngSwitchCase="'delivered'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="sender_delivered.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+              <ion-col  col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let send of sender_delivered" (click)="viewOrder(send)">
+                <div class="CardItem borderRightYellow">
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{ send.price - (send.price * (send.discount/100)) }} ريال</h4>
+                        <h6>{{send.serial}}</h6>
+                        <span>{{myDate(send.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{send.sender_address.label}}</h5>
+                        <p>هاتف {{send.sender_address.phone}}</p>
+                        <h5> الي {{send.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{send.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'sender', 'delivered')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+        <ion-list *ngSwitchCase="'approved'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="sender_approved.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+              <ion-col  col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let send of sender_approved" (click)="viewOrder(send)">
+                <div class="CardItem borderRightGree">
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{ send.price - (send.price * (send.discount/100)) }} ريال</h4>
+                        <h6>{{send.serial}}</h6>
+                        <span>{{myDate(send.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{send.sender_address.label}}</h5>
+                        <p>هاتف {{send.sender_address.phone}}</p>
+                        <h5> الي {{send.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{send.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'sender', 'in_progress')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+        <ion-list *ngSwitchCase="'pending'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="sender_pending.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+              <ion-col   col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let send of sender_pending" (click)="viewOrder(send)">
+                <div class="CardItem borderRightBlue ">
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{ send.price - (send.price * (send.discount/100)) }} ريال</h4>
+                        <h6>{{send.serial}}</h6>
+                        <span>{{myDate(send.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{send.sender_address.label}}</h5>
+                        <p>هاتف {{send.sender_address.phone}}</p>
+                        <h5> الي {{send.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{send.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'sender', 'new')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+      </div>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'va4'">
+
+      <div padding style="padding: 5px; padding-top: 0; padding-bottom: 1px;">
+        <ion-segment mode="ios" [(ngModel)]="pet5">
+          <ion-segment-button  (click)="getData('all', 'delivered')" value="delivered">
+            تم الشحن
+          </ion-segment-button>
+          <ion-segment-button (click)="getData('all', 'in_progress')" value="approved">
+            قيد الشحن
+          </ion-segment-button>
+          <ion-segment-button (click)="getData('all', 'new')" value="pending">
+            جديد
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+      <div [ngSwitch]="pet5">
+
+        <ion-list *ngSwitchCase="'delivered'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="all_delivered.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+
+              <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let send of all_delivered" (click)="viewOrder(send)">
+                <div class="CardItem borderRightYellow">
+                  
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{ send.price - (send.price * (send.discount/100)) }} ريال</h4>
+                        <h6>{{send.serial}}</h6>
+                        <span>{{myDate(send.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{send.sender_address.label}}</h5>
+                        <p>هاتف {{send.sender_address.phone}}</p>
+                        <h5> الي {{send.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{send.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'all', 'delivered')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+        <ion-list *ngSwitchCase="'approved'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="all_approved.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+
+              <ion-col  col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let send of all_approved" (click)="viewOrder(send)">
+                <div class="CardItem borderRightGree">
+                  
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{ send.price - (send.price * (send.discount/100)) }} ريال</h4>
+                        <h6>{{send.serial}}</h6>
+                        <span>{{myDate(send.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                        <h5> من  {{send.sender_address.label}}</h5>
+                        <p>هاتف {{send.sender_address.phone}}</p>
+                        <h5> الي {{send.receiver_address.label}}</h5>
+                        <p style="border-bottom:none;"> هاتف {{send.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col> 
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'all', 'in_progress')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+        <ion-list *ngSwitchCase="'pending'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+                  <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+                </div>
+                <div class="empty_data" *ngIf="all_pending.length == 0 && requestDone != 0">
+                  <p>لا يوجد بيانات</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row dir="rtl">
+              <ion-col  col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let send of all_pending" (click)="viewOrder(send)">
+                <div class="CardItem borderRightBlue ">
+                  <button ion-button small class="submenu">
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                  <div class="overflow">
+                    <div class="right">
+                      <div class="border">
+                        <h4>{{ send.price - (send.price * (send.discount/100)) }} ريال</h4>
+                        <h6>{{send.serial}}</h6>
+                        <span>{{myDate(send.created_at) | date:"dd/MM hh:mm"}}</span>
+                      </div>
+                    </div>
+                    <div class="left">
+                      <h5> من  {{send.sender_address.label}}</h5>
+                      <p>هاتف {{send.sender_address.phone}}</p>
+                      <h5> الي {{send.receiver_address.label}}</h5>
+                      <p style="border-bottom:none;"> هاتف {{send.receiver_address.phone}}</p>
+                    </div>
+                  </div>
+                  <div class="cardFoo">
+                    <div class="overflow" style="width:80%; margin:0 auto;">
+                      <div class="dot2">تم الاستلام</div>
+                      <div class="dot2">تم النقل</div>
+                      <div class="dot2">تاكيد الطلب</div>
+                    </div>
+                    <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                      <div class="dot">✓</div>
+                    </div>
+                    <div class="bar">
+                      <div class="inline"></div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-infinite-scroll  position="bottom" (ionInfinite)="doInfinite($event, 'all', 'new')">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+      </div>
+
+
+      <!-- <ion-grid>
+              <ion-row>
+                <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let order of all?.orders" (click)="viewOrder(order)">
+                  <div  margin-bottom  class="CardItem pad-5" [ngClass]="{'borderRightGree' : (order.status == 'approved'), 'borderRightBlue':(order.status == 'pending'),'borderRightYellow' : (order.status == 'delivered'),'borderRightRed' : (order.status == 'refunded')}">
+                      <span *ngIf="order.status == 'pending'" class="label" style="background: #888;">جديد</span>
+                      <span *ngIf="order.status == 'approved'" class="label" style="background: #eeee3f;">تاكيد</span>
+                      <span *ngIf="order.status == 'delivered'" class="label" style="background: green;">تم التوصيل</span>
+                      <span *ngIf="order.status == 'refunded'" class="label" style="background: red;">ملغاه</span>
+                      <button ion-button small class="submenu">
+                          <ion-icon name="menu"></ion-icon>
+                        </button>
+                     <div class="overflow">
+                        <div class="right">
+                          <div class="border">
+                            <h4>{{ order.price - (order.price * (order.discount/100)) }} ريال</h4>
+                            <h6>#{{order.id}}</h6>
+                            
+                          </div>
+                        </div>
+                        <div class="left">
+                            <h5>هاتف المرسل {{order.sender_address.phone}}</h5>
+                            <p>{{order.sender_address.label}}</p>
+                            <h5>هاتف المستلم {{order.receiver_address.phone}}</h5>
+                            <p style="border-bottom:none;">{{order.receiver_address.label}}</p>
+                        </div>
+                     </div>
+                     <div class="cardFoo">
+                        <div class="overflow" style="width:80%; margin:0 auto;">
+                            <div class="dot2">تم الاستلام</div>
+                            <div class="dot2">تم النقل</div>
+                            <div class="dot2">تاكيد الطلب</div>
+                          </div>
+                       <div class="overflow" style="width:80%; margin:0 auto; top:6.7px;">
+                         <div class="dot">✓</div>
+                         <div class="dot">✓</div>
+                         <div class="dot">✓</div>
+                       </div>
+                        <div class="bar">
+                          <div class="inline"></div>
+                        </div>
+                     </div>
+                  </div>
+                </ion-col>
+
+
+                
+              </ion-row>
+            </ion-grid> -->
+
+    </ion-list>
+  </div>
+</ion-content>

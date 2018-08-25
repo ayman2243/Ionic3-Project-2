@@ -1,0 +1,113 @@
+<!--
+  Generated template for the MyAccountPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <!--
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    -->
+    <ion-title>لوحة التحكم</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col no-padding col-6 col-sm-6 col-lg-4>
+        <div (click)="goToAddressesManagementPage()" class="card-button">
+          
+            <div class="parent-div">
+              <div class="circle">
+              </div>
+              <div style="height: 13px;">
+                <ion-icon class="icons" name="pin"></ion-icon>
+              </div>
+            </div>
+          
+          <h4 text-center no-padding no-margin text-wrap>عناوينى</h4>
+        </div>
+      </ion-col>
+
+      <ion-col no-padding col-6 col-sm-6 col-lg-4>
+        <div (click)="goToBillingPage()" class="card-button">
+          
+            <div class="parent-div">
+              <div class="circle">
+              </div>
+              <div style="height: 13px;">
+                <ion-icon class="icons" name="logo-usd"></ion-icon>
+              </div>
+            </div>
+          <h4 text-center no-padding no-margin text-wrap>حسابي</h4>
+        </div>
+      </ion-col>
+
+      <ion-col no-padding col-6 col-sm-6 col-lg-4>
+        <div (click)="goToBankaccountPage()" class="card-button">
+            <div class="parent-div">
+              <div class="circle">
+              </div>
+              <div style="height: 13px;">
+                <ion-icon class="icons big-icons" name="ios-card"></ion-icon>
+              </div>
+            </div>
+          <h4 text-center no-padding no-margin text-wrap>طلب تحويل بنكي</h4>
+        </div>
+      </ion-col>
+      <ion-col no-padding col-6 col-sm-6 col-lg-4>
+        <div (click)="goToPromoCodePage()" class="card-button"> 
+            <div class="parent-div">
+              <div class="circle">
+              </div>
+              <div style="height: 13px;">
+                <ion-icon class="icons big-icons" name="md-ribbon"></ion-icon>
+              </div>
+            </div>
+          <h4 text-center no-padding no-margin text-wrap>قسيمة تخفيض</h4>
+        </div>
+      </ion-col>
+      <ion-col no-padding col-6 col-sm-6 col-lg-4>
+        <div (click)="ChangePassword()" class="card-button">
+            <div class="parent-div">
+              <div class="circle">
+              </div>
+              <div style="height: 13px;">
+                <ion-icon class="icons" name="md-lock"></ion-icon>
+              </div>
+            </div>
+          <h4 text-center no-padding no-margin text-wrap>تغيير الرقم السري</h4>
+        </div>
+      </ion-col>
+      <ion-col no-padding col-6 col-sm-6 col-lg-4>
+        <div (click)="LogOut()" class="card-button">
+            <div class="parent-div">
+              <div class="circle">
+              </div>
+              <div style="height: 13px;">
+                <ion-icon class="icons big-icons" name="md-power"></ion-icon>
+              </div>
+            </div>
+          <h4 text-center no-padding no-margin text-wrap>تسجيل خروج</h4>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

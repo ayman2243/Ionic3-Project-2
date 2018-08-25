@@ -1,0 +1,17 @@
+page-singnupmap {
+    .subhead
+    {
+      margin: 10px 0;
+      background-color: color($colors,primary);
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 0;
+      overflow: hidden;
+    }
+    .select-init{
+      padding-top:27px !important;
+  }
+}
+.toast{
+  text-align: right !important;
+}

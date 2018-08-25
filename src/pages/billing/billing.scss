@@ -1,0 +1,105 @@
+page-billing {
+  .info {
+    overflow: hidden; //background: red;
+    width: 100%;
+    .rx {
+      text-align: center;
+      padding: 20px 0;
+      width: 50%;
+      float: right;
+      border-right: solid 1px #eaeaea;
+      &:first-child {
+        border-right: none;
+      }
+      strong {
+        display: block;
+      }
+      span {
+        display: block;
+        color: #333;
+      }
+    }
+    padding-bottom: 10px;
+    border-bottom: solid 1px #eaeaea;
+  }
+  .empty_data p {
+    text-align: center !important;
+    color: #ababab;
+    margin: 0;
+    padding: 30px;
+    font-size: 20px ! important;
+  }
+  .bilItem {
+    overflow: hidden;
+    border-bottom: solid 1px #eaeaea;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    .td {
+      width: 20%;
+      float: right;
+      text-align: center;
+      padding: 18px 0;
+      strong {
+        display: block;
+        font-weight: bold;
+      }
+      border-left: solid 1px #eaeaea;
+      &:first-child {
+        border: none !important;
+        width: 15%; // border-radius: 50%;
+        // padding: 18px 0;
+        // background-color: color($colors, primary);
+        color: #fff;
+        overflow: hidden;
+        strong,
+        span {
+          font-size: 11px !important;
+        }
+      }
+      &:nth-child(2) {
+        width: 25%;
+      }
+    }
+    .ordersdes {
+      display: none;
+      width: 100%;
+      overflow: hidden;
+      padding-right: 20px;
+      padding-top: 10px;
+      ul {
+        width: 100%;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        li {
+          list-style: none;
+          width: 25%;
+          float: right;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .red {
+    color: red;
+  }
+  .green {
+    color: green;
+  }
+  .date {
+    border-radius: 50%;
+    background-color: #6E5694;
+    display: inline-block;
+    margin: auto;
+    padding: 10px 5px;
+  }
+  .has-refresher>.scroll-content {
+    border: none;
+  }
+  .refresher-pulling-icon,
+  .refresher-refreshing-icon {
+    font-size: 2.2rem !important;
+    color: color($colors, primary);
+  }
+
+}

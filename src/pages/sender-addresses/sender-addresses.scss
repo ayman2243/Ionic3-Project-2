@@ -1,0 +1,39 @@
+page-sender-addresses {
+  .addbtn {
+    position: fixed;
+    bottom: 90px;
+    left: 20px;
+    z-index: 999;
+  }
+  .sender-label {
+    font-size: 14px !important;
+    border-radius: 0px;
+    padding: 10px 20px;
+  }
+  .togglerContent {
+    display: none;
+  }
+  .refresher-pulling-icon,
+  .refresher-refreshing-icon {
+    font-size: 2rem !important;
+    color: color($colors, primary);
+  }
+  .has-refresher>.scroll-content {
+    border: none;
+  }
+  .empty_data p {
+    text-align: center !important;
+    color: #ababab;
+    margin: 0;
+    padding: 30px;
+    font-size: 20px ! important;
+  }
+  .card {
+    border-radius: 8px;
+    border-right: 5px solid color($colors, primary);
+    padding:5px;
+  }
+}
+.toast{
+  text-align: right !important;
+}

@@ -1,0 +1,183 @@
+page-a-orders {
+  .CardItem {
+    border: solid 1px color($colors, primary);
+    border-right: solid green 4px;
+    border-radius: 5px;
+    padding-top: 20px;
+    .label {
+      position: absolute;
+      left: 15px;
+      top: 16px;
+      background: #eee;
+      padding: 3px 5px;
+      color: #fff;
+      border-radius: 4px;
+    }
+  }
+  .overflow {
+    overflow: hidden;
+    padding-bottom: 0px;
+    position: relative;
+  }
+  .right {
+    float: right;
+    width: 25%;
+    padding-top: 5px;
+    h4 {
+      font-size: 13px;
+      margin: 0;
+      padding: 0;
+    }
+    h6 {
+      font-size: 11px;
+      margin: 5px 0;
+      padding: 0;
+    }
+    span {
+      font-size: 9px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .left {
+    float: left;
+    width: 75%;
+    background-image: url(../assets/imgs/border.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    padding: 10px;
+    h5 {
+      margin: 0;
+      padding: 0;
+      font-size: 10px;
+      text-align: right;
+      margin: 0 20px;
+    }
+    p {
+      margin: 0 20px;
+      font-size: 8px;
+      border-bottom: solid 1px #eee;
+      text-align: right;
+      margin-bottom: 10px;
+      margin-top: 5px;
+      padding-bottom: 10px;
+      line-height: 1.3em;
+    }
+  }
+  .border {
+    margin: 20px auto;
+    text-align: center;
+  }
+  .cardFoo {
+    //height: 60px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    background-color: #ebebeb;
+    display: none;
+  }
+  .dot {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    background-color: #6E5694;
+    float: left;
+    color: white;
+    line-height: 9px;
+    text-align: center;
+    font-size: 7px;
+    &:last-child {
+      position: absolute;
+      right: 0px;
+    }
+    &:nth-child(2) {
+      position: absolute;
+      right: 50%;
+    }
+    &:first-child {
+      //position: absolute;
+      left: 0;
+    }
+  }
+  .dot2 {
+    border-radius: 50%; //height: 10px;
+    font-size: 8px;
+    display: inline-block;
+    float: left;
+    &:last-child {
+      position: absolute;
+      right: 0px;
+    }
+    &:nth-child(2) {
+      position: absolute;
+      right: calc(50% - 10px);
+    }
+    &:first-child {
+      //position: absolute;
+      left: 0;
+    }
+  }
+  .bar {
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 4px;
+    background-color: #aaa;
+    .inline {
+      width: 50%;
+      height: 4px;
+      border-radius: 4px;
+      background-color: color($colors, primary);
+    }
+  }
+  .addbtn {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+  }
+  .submenu {
+    background-color: transparent;
+    position: absolute;
+    color: #000;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    right: 20px;
+    top: 10px;
+  }
+  .empty_data p {
+    text-align: center !important;
+    color: #ababab;
+    margin: 0;
+    padding: 30px;
+    font-size: 20px ! important;
+  }
+  .borderRightBlue {
+    border-right: solid #888 4px !important;
+  }
+  .borderRightGreen {
+    border-right: solid #eeee3f 4px !important;
+  }
+  .borderRightYellow {
+    border-right: solid blue 4px !important;
+  }
+  .borderRightRed {
+    border-right: solid red 4px !important;
+  }
+  ion-grid {
+    //overflow: hidden;
+    //height: 100vh;
+  }
+  .refresher-pulling-icon,
+  .refresher-refreshing-icon {
+    font-size: 2.2rem !important;
+    color: color($colors, primary);
+  }
+  .has-refresher>.scroll-content {
+    border: none;
+  }
+  .segment-ios .segment-button:hover:not(.segment-activated){
+    background-color: transparent !important;
+  }
+}
+.toast{
+  text-align: right !important;
+}

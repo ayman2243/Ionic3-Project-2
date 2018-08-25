@@ -1,0 +1,63 @@
+<!--
+  Generated template for the NewBankPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    -->
+    <ion-title>اضافة بنك جديد</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+    <form (ngSubmit)="Submit()" [formGroup]="addForm">
+    <ion-row>
+      <ion-col col-12 margin-bottom class="select">
+          <ion-item no-padding>
+            <ion-select name="bank_id" formControlName="bank_id" [(ngModel)]="addData.bank_id" dir="rtl" okText="تم" cancelText="الغاء" placeholder=" اختار البنك *">
+                <ion-option *ngFor="let bank of banks?.banks" value="{{ bank.id }}">{{ bank.name }}</ion-option>
+            </ion-select>
+            <ion-label loat-right text-end stacked></ion-label>
+          </ion-item>
+      </ion-col>
+      
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item no-padding>
+            <ion-label float-right text-end stacked>* رقم الحساب - الايبان</ion-label>
+            <ion-input name="acc_no" formControlName="acc_no" [(ngModel)]="addData.acc_no"  dir="rtl" type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12>
+        <ion-item no-padding>
+            <ion-label float-right text-end stacked>* أسم صاحب الحساب</ion-label>
+            <ion-input name="acc_name" formControlName="acc_name" [(ngModel)]="addData.acc_name" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+
+
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 margin-top>
+        <button ion-button round full [disabled]="addForm.invalid" type="submit">حفظ</button>
+      </ion-col>
+    </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

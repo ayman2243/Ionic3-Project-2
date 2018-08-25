@@ -1,0 +1,204 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+@import "ionic.globals";
+//@import url('https://fonts.googleapis.com/css?family=Cairo');
+@font-face {
+  font-family: 'Cairo';
+  src: url("../assets/fonts/Cairo/Cairo-SemiBold.ttf") format("truetype");
+}
+
+*:not(.icon) {
+  font-family: 'Cairo', sans-serif !important;
+  font-size: 11px !important;
+  .picker-wrapper {
+    * {
+      font-size: 18px !important;
+      button * {
+        font-size: 13px !important;
+      }
+    }
+  }
+}
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+$colors: ( primary : #452c92,
+secondary : #FFF,
+danger : #ED1C24,
+light : #EEE,
+dark : #222);
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+@import "ionic.theme.default";
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/ionicons/
+@import "ionic.ionicons";
+// Fonts
+// --------------------------------------------------
+@import "roboto";
+@import "noto-sans";
+input::-webkit-input-placeholder {
+  text-align: right !important;
+  font-size: 10px;
+}
+
+input:-moz-placeholder {
+  /* Firefox 18- */
+  text-align: right !important;
+  font-size: 10px;
+}
+
+input::-moz-placeholder {
+  /* Firefox 19+ */
+  text-align: right !important;
+  font-size: 10px;
+}
+
+input:-ms-input-placeholder {
+  text-align: right !important;
+  font-size: 10px;
+}
+
+.vertical-align-content>* {
+  display: flex !important;
+  align-content: center !important;
+  align-items: center !important;
+}
+
+ion-title {
+  //text-align: center !important;
+  .toolbar-title {
+    font-size: 14px !important;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+}
+
+// .toolbar-title-md {
+//   //padding: 0 0 0 50px !important;
+// }
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.block-ellipsis {
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  height: 43px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alert-md .alert-radio-label {
+  direction: rtl;
+}
+
+.alert-md .alert-head {
+  direction: rtl;
+}
+
+.tab-button-text {
+  font-size: 11px !important;
+}
+
+ion-segment-button {
+  font-size: 11px !important;
+}
+
+ion-spinner * {
+  width: 30px !important;
+  height: 30px !important;
+  stroke: color($colors, primary) !important;
+}
+
+ion-refresher-content {
+  font-weight: 40px;
+}
+
+ion-toast{
+  text-align: right !important;
+}
+
+.pad-5 {
+  padding: 5px;
+}
+
+.subhead {
+  background-color: #989898 !important;
+}
+
+// .alert-md .alert-wrapper {
+//   @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+//       transform: scale(1.6) !important;
+
+//   }
+// }
+
+.md .modal-wrapper{
+  width: 100vw !important;
+  height: 100vh !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+.header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+background-image: url()!important; 
+ 
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  *:not(.icon) {
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 13px !important;
+    .picker-wrapper {
+      * {
+        font-size: 18px !important;
+        button * {
+          font-size: 13px !important;
+        }
+      }
+    }
+  }
+}
+

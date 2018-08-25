@@ -1,0 +1,48 @@
+page-verification {
+    
+    .text-input-md 
+    {
+        //border-bottom: 1px solid #a2a2a2;
+    }
+    .button-clear-md-danger
+    {
+        //text-decoration: underline;
+        border-bottom: solid 1px;
+        padding: 0 0;
+    }
+    .view-height
+    {
+        height: 80vh;
+    }
+    .quarter
+    {
+        height: 25%;
+    }
+    p,span
+    {
+        margin: 0 !important; 
+    }
+    .font
+    {
+        font-size: 18px;
+    }
+    .changePhoneNumer{
+        color: color($colors, danger);
+        span{
+            border-bottom: solid 1px color($colors, danger);
+        }
+        
+    }
+
+    button.ResendCodeBtn{
+        background-color: white;
+        color: color($colors, primary);
+    }
+    button[disabled].ResendCodeBtn{
+        background-color: white;
+    }
+
+}
+.toast{
+    text-align: right !important;
+}

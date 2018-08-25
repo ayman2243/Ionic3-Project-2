@@ -1,0 +1,81 @@
+<!--
+  Generated template for the SingnupmapPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    -->
+    <ion-title> ادخل عنوانك </ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+<form (ngSubmit)="next()" [formGroup]="addressForm" >
+ <ion-row>
+    <ion-col col-12>
+        <div class="subhead" text-center>
+          بيانات العنوان
+        </div>
+        <ion-item no-padding>
+          <ion-label float-right text-end stacked>* اسم العنوان</ion-label>
+          <ion-input formControlName="label" name="label" [(ngModel)]="address[0].label" type="text"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-select [selectOptions]="selectOptions" (ionChange)="selectCity()" formControlName="country_id" name="country_id" [(ngModel)]="address[0].country_id"  dir="rtl" okText="تم" cancelText="الغاء" placeholder="أختر-الدولة *">
+            <ion-option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</ion-option>
+          </ion-select>
+          <ion-label loat-right text-end stacked></ion-label>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-select [selectOptions]="selectOptions" formControlName="city_id" name="city_id" [(ngModel)]="address[0].city_id" dir="rtl" okText="تم" cancelText="الغاء" placeholder="أختر-المدينة *">
+              <ion-option *ngFor="let city of cities.cities" value="{{city.id}}">{{city.name}}</ion-option>
+          </ion-select>
+          <ion-label loat-right text-end stacked></ion-label>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label float-right text-end stacked>* الحي</ion-label>
+          <ion-input formControlName="district" name="district" [(ngModel)]="address[0].district"  type="text"  ></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label float-right text-end stacked>تفاصيل العنوان</ion-label>
+          <ion-input formControlName="st_no" name="st_no" [(ngModel)]="address[0].st_no"  type="text" placeholder="رقم شارع او علامة محيطة"  ></ion-input>
+        </ion-item>
+       
+    </ion-col>
+    <ion-col col-12>
+      <ion-item no-padding>
+        <ion-label float-right text-end stacked>* رقم الهاتف</ion-label>
+        <ion-input formControlName="address_phone" name="address_phone" [(ngModel)]="address[0].address_phone" type="number"></ion-input>
+      </ion-item>
+    </ion-col>
+    
+    <ion-col (click)="getLocation()" col-12>
+      <ion-item no-padding>
+        <ion-label text-end  float-right stacked>تحديد موقعك علي الخريطة</ion-label>
+        <ion-input text-end type="text" formControlName="location" name="location" [(ngModel)]="address[0].location" disabled placeholder="اضغط هنا اذا كان موقعك الحالي هو العنوان"></ion-input>
+        <ion-icon name="locate" item-start style="position: relative; top: 9px; left: 10px; color: #999;"></ion-icon>
+      </ion-item>
+    </ion-col>
+    
+  </ion-row>
+  <ion-row margin-top padding-bottom>
+    <ion-col col-12>
+        <button ion-button round full  [disabled]="addressForm.invalid" type="submit">تسجيل</button>
+    </ion-col>
+  </ion-row>
+</form>
+</ion-content>

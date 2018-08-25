@@ -1,0 +1,51 @@
+<!--
+  Generated template for the NotificationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    -->
+    <ion-title>الإشعارات</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event, address)">
+      <ion-refresher-content pullingIcon="md-refresh" refreshingSpinner="crescent">
+      </ion-refresher-content>
+    </ion-refresher>
+  <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+    <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+  </div>
+  <ion-grid *ngIf=" notifications?.length == 0 ">
+    <ion-row>
+      <ion-col col-12>
+        <div class="empty_data">
+          <p>لا يوجد إشعارات</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ul>
+    <li *ngFor="let noti of notifications" text-wrap>
+      <div>
+      <div class="first"><span style="float:left">{{ myDate(noti.created_at) | date:'dd MMMM yyyy' }}</span></div>
+      <div class="second">{{ noti.notification }}</div>
+    </div>
+    </li>
+  </ul>
+</ion-content>

@@ -1,0 +1,97 @@
+<!--
+Generated template for the TransactionsPage page.
+
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <!--
+  <ion-buttons start>
+  <button ion-button icon-only>
+  <ion-icon name="contact"></ion-icon>
+  </button>
+  </ion-buttons>
+  -->
+    <ion-title>طلب تحويل بنكي</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="empty_data">
+    <p>
+      يمكنك من هنا تحويل رصيدك في التطبيق الي حسابك البنكي
+      <br>
+      <span>
+        رصيدك الحالي {{ balance }} ريال
+      </span>
+    </p>
+  </div>
+  <div style=" width: 100%;" *ngIf="requestDone == 0"> 
+    <ion-spinner style="position: relative; display: block; width: 28px; height: 28px; margin: 0 auto;"></ion-spinner>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <div class="empty_data" *ngIf="banktransctions?.length == 0 && requestDone != 0">
+          <p>لايوجد تحويلات</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-refresher (ionRefresh)="doRefresh($event, address)">
+    <ion-refresher-content pullingIcon="md-refresh" refreshingSpinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row dir="rtl">
+      <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let bank of trans1">
+        <ion-card>
+          <ion-card-header>
+            <span class="label" style="background: #888;">طلب جديد</span>
+            <span style="padding-left:5px;"> حوالة بتاريخ:</span>{{ myDate(bank.created_at) | date:'dd/mm/yyyy' }}
+          </ion-card-header>
+          <ion-card-content>
+            <span style="padding-left:5px;"> تحويل مبلغ:</span>{{ bank.amount }}
+            <br>
+            <span style="padding-left:5px;"> من حساب بنك:</span> {{ bank.withdraw.bank.name }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr *ngIf="trans1.lenght > 0">
+  <ion-grid>
+    <ion-row dir="rtl">
+      <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let bank of trans2">
+        <ion-card>
+          <ion-card-header>
+            <span *ngIf="bank.status === 'rejected'" class="label" style="background: red;">مرفوضة</span>
+            <br>
+            <span *ngIf="bank.status === 'rejected'" class="label2" style="color: red;">{{bank.reject_cause}}</span>
+            <span *ngIf="bank.status === 'transfered'" class="label" style="background: #EEEE3F;">تم التحويل</span>
+            <span *ngIf="bank.status === 'approved' " class="label" style="background:green ">تمت بنجاح</span>
+            <span style="padding-left:5px;"> حوالة بتاريخ:</span>{{myDate(bank.created_at) | date:'dd/mm/yyyy'}}
+          </ion-card-header>
+          <ion-card-content>
+            <span style="padding-left:5px;"> تحويل مبلغ:</span>{{bank.amount}}
+            <br>
+            <span style="padding-left:5px;"> من حساب بنك:</span> {{bank.withdraw.bank.name}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab (click)="toast()" class="addbtn">
+    <button [disabled]="buttonstatus" ion-fab>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="page > 0" >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
